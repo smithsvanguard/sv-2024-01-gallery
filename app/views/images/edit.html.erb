@@ -4,13 +4,26 @@
   <div class="row">
     <div class="col">
       <h1>Update Image Details</h1>
-
-      <%= link_to(image_tag(url_for(@image.file), :class => "img-thumbnail")) %>
+      <!--
+        <img class="img-fluid" src="{path-of-the-image-in-s3}" />
+        -->
+      <%= image_tag(url_for(@image.file), :class => "img-thumbnail") %>
 
       <%= form_with model: @image do |form| %>
         <div class="mb-3 row">
+          <!--
+            This becomes a "label" when rendered becomes:
+
+            <label class="col-sm-2 col-form-label" for="image_name">Name</label>
+          -->
           <%= form.label :name, :class => "col-sm-2 col-form-label" %><br>
           <div class="col-sm-5">
+
+            <!--
+              This becomes a "input" element when rendered becomes:
+
+              <input class="form-control" type="text" value="{value-of-the-name}" name="image[name]" id="image_name">
+              -->
             <%= form.text_field :name, :class => "form-control" %>
           </div>
           <div class="col-sm-4">
@@ -23,6 +36,16 @@
         <div class="mb-3 row">
           <%= form.label :alt_text, :class => "col-sm-2 col-form-label" %><br>
           <div class="col-sm-5">
+
+            <!--
+              This becomes a "input" element when rendered becomes:
+
+              <input class="form-control"
+                     type="text"
+                     value="{value-of-the-alt-text-of-the-image}"
+                     name="image[alt_text]"
+                     id="image_alt_text">
+              -->
             <%= form.text_field :alt_text, :class => "form-control" %>
           </div>
           <div class="col-sm-4">
@@ -45,12 +68,35 @@
         </div>
 
         <div class="mb-3 row">
+          <!--
+              This becomes a "input" of type button submit element when rendered becomes:
+
+              <input  type="submit"
+                      value="Save"
+                      class="offset-sm-2 col-sm-2 btn btn-primary"
+                      >
+              -->
           <%= form.submit 'Save', :class => "offset-sm-2 col-sm-2 btn btn-primary" %>
         </div>
       <% end %>
 
       <div class="btn-group">
+        <!--
+          <a class="btn btn-primary" href="/images/new.{image-id}">Back to Gallery</a>
+          -->
         <%= link_to "Back to Gallery", new_image_path(@image), :class => "btn btn-primary" %>
+
+        <!--
+          <a  data-turbo-method="delete"
+              data-turbo-confirm="Are you sure?"
+              class="btn btn-danger"
+              href="/images/{image-id}">Remove image and details
+          </a>
+          -->
+        <%= link_to "Remove image and details", image_path(@image), data: {
+          turbo_method: :delete,
+          turbo_confirm: "Are you sure?"
+        }, :class => "btn btn-danger" %>
       </div>
     </div>
   </div>

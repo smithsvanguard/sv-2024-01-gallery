@@ -6,12 +6,33 @@
     <div class="col">
       <h1>Image Gallery</h1>
       <%= form_with(model: @image, url: images_path, multipart: true) do |form| %>
+        <!--
+          At the browser/client, this will be rendered as:
+
+          <input type="file" name="image[file]" id="image[file]" />
+          -->
         <%= form.file_field :file %>
+
+        <!--
+          At the browser/client, this will be rendered as:
+
+          <input type="submit" value="upload" />
+          -->
         <%= form.submit 'Upload' %>
       <% end %>
+      <br/>
     </div>
   </div>
   <div class="row">
+      <!--
+      Displays the images that is enclosed in a link to the edit page:
+
+      <div class="col-4">
+        <a href="/images/:id/edit">
+          <img class="img-fluid" src="{path-of-the-image-in-s3}" />
+        </a>
+      </div>
+      -->
       <% @images.each do |image| %>
         <div class="col-4">
           <%= link_to(image_tag(url_for(image.file), :class => "img-fluid"), edit_image_path(image)) %>

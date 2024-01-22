@@ -10,14 +10,17 @@
         <table class="table-primary">
           <tr>
             <th>Name</th>
+            <!-- Renders the "name" attribute of the image record -->
             <td><%= @image.name %></td>
           </tr>
           <tr>
             <th>Alt Text</th>
+            <!-- Renders the "alt_text" attribute of the image record -->
             <td><%= @image.alt_text %></td>
           </tr>
           <tr>
             <th>Category</th>
+            <!-- Renders the "category" attribute of the image record -->
             <td><%= @image.category %></td>
           </tr>
         </table>
@@ -29,8 +32,27 @@
 
 
     <div class="btn-group">
+      <!--
+          <a  class="btn btn-primary"
+              href="/images/new.{image-id}">Back to Gallery
+          </a>
+        -->
       <%= link_to "Back to Gallery", new_image_path(@image), :class => "btn btn-primary" %>
+
+      <!--
+          <a  class="btn btn-primary"
+              href="/images/new.{image-id}">Back to Gallery
+          </a>
+        -->
       <%= link_to "Edit", edit_image_path(@image), :class => "btn btn-warning" %>
+
+      <!--
+          <a  data-turbo-method="delete"
+              data-turbo-confirm="Are you sure?"
+              class="btn btn-danger"
+              href="/images/{image-id}">Remove image and details
+          </a>
+        -->
       <%= link_to "Remove image and details", image_path(@image), data: {
         turbo_method: :delete,
         turbo_confirm: "Are you sure?"
